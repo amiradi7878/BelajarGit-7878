@@ -1,0 +1,43 @@
+<?php
+
+require_once('lib/DBClass.php');
+require_once('lib/m_siswa.php');
+require_once('lib/m_nationality.php');
+
+$sisswa = new siswa();
+$nation = new nationality();
+
+$data_nation = $nation->readAllNationality();
+
+if(isset($_POST['send'])){
+	$name = $POST['name'];
+	$nis = $POST['nis'];
+	$email = $POST['email'];
+	$nat = $POST['nation'];
+	
+	$tambah = $siswa->createSiswa($nat, $nis, $name, $email, '');
+	echo "Data Siswa berhasil ditambahkan<br/><br/>";
+}
+
+?>
+
+<h1>Tambah Data Siswa</h1>
+<form action="tesiswa.php" method="post">
+	NIS:<br/>
+	<input type="text" name="nis"><br/>
+	Nama Lengkap:<br/>
+	<input type="text" name="name"><br/>
+	Email:<br/>
+	<input type="text" name="email"><br/>
+	Kewarganegaraan:<br/>
+	<select name="nation"><br/>
+		<option value="">--Pilih Negara--</option>
+		<?php foreach($data_nation as $n): ?>
+		<option value="<?php echo $n['id_nationality'] ?>">
+			<?php echo $n['nationality']?>
+		</option>
+		<?php endforeach?>
+	</select><br/>
+	<input type="submit" name="send" value="save"><br/>
+</form>
+
