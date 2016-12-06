@@ -1,4 +1,5 @@
 <?php
+//komentar dari server
 //testing
 //-----comment
 require_once('lib/DBClass.php');
